@@ -205,7 +205,7 @@
           contactForm.reset();
         })
         .catch(() => {
-          showStatus("We couldn't send that automatically. Please email us directly at support@flowread.app.", 'error');
+          showStatus("We couldn't send that automatically. Please email us directly at support@iflowread.com.", 'error');
         })
         .finally(() => {
           if (submitBtn) submitBtn.removeAttribute('disabled');
