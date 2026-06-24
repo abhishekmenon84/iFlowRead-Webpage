@@ -212,4 +212,37 @@
         });
     });
   }
+  /* ---------- Feedback form (homepage, Formspree) ---------- */
+  const feedbackForm = document.getElementById('feedbackForm');
+  if (feedbackForm) {
+    const successEl = document.getElementById('feedbackSuccess');
+    const submitBtn = document.getElementById('fbSubmit');
+
+    feedbackForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = feedbackForm.querySelector('#fb-message');
+      if (!msg || !msg.value.trim()) {
+        msg && msg.focus();
+        return;
+      }
+      if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+
+      const data = new FormData(feedbackForm);
+      fetch(feedbackForm.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      })
+        .then(res => {
+          if (res.ok) {
+            feedbackForm.reset();
+            if (successEl) successEl.hidden = false;
+          } else {
+            alert("Couldn't send — please email us at support@iflowread.com");
+          }
+        })
+        .catch(() => alert("Couldn't send — please email us at support@iflowread.com"))
+        .finally(() => { if (submitBtn) submitBtn.removeAttribute('disabled'); });
+    });
+  }
 })();
